@@ -72,6 +72,24 @@ public class StudentAttendanceService {
 
 		return attendanceManagementDtoList;
 	}
+	
+	// 田口響希 – Task.25
+	/**
+	 * 勤怠入力漏れチェック
+	 * @return 今日以前に未入力が有るかどうか
+	 */
+	public boolean notEnterCheck() throws ParseException {
+		// マッパーから勤怠抜け漏れを確認するクエリを実行
+		Integer hasUnenteredCounter 
+			= tStudentAttendanceMapper.notEnterCount(loginUserDto.getLmsUserId(),
+						Constants.DB_FLG_FALSE, attendanceUtil.getTrainingDate());
+		// 検索結果の抜け漏れの件数が0より大きければ抜け漏れ有りとしてフラグを立てる
+		if (hasUnenteredCounter > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	/**
 	 * 出退勤更新前のチェック

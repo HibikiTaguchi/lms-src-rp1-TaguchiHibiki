@@ -48,7 +48,17 @@ public interface TStudentAttendanceMapper {
 	 */
 	List<AttendanceManagementDto> getAttendanceManagement(@Param("courseId") Integer courseId,
 			@Param("lmsUserId") Integer lmsUserId, @Param("deleteFlg") Short deleteFlg);
-
+	
+	/**
+	 * 勤怠管理画面用DTOリスト取得 オーバーロード
+	 * 
+	 * @param courseId
+	 * @param lmsUserId
+	 * @return 勤怠管理画面用DTOリスト
+	 */
+	List<AttendanceManagementDto> getAttendanceManagement(@Param("courseId") Integer courseId,
+			@Param("lmsUserId") Integer lmsUserId);
+	
 	/**
 	 * 勤怠情報（受講生入力）登録
 	 * 
@@ -64,5 +74,17 @@ public interface TStudentAttendanceMapper {
 	 * @return 更新結果
 	 */
 	Boolean update(TStudentAttendance tStudentAttendance);
-
+	
+	// 田口響希 – Task.25
+	/**
+	 * 勤怠情報（受講生入力）未入力件数取得
+	 * 
+	 * @param userId
+	 * @param deleteFlg
+	 * @param trainingDate
+	 * @return 未入力件数
+	 */
+	Integer notEnterCount(@Param("lmsUserId") Integer lmsUserId, @Param("deleteFlg") Short deleteFlg,
+			@Param("trainingDate") Date trainingDate);
+	
 }

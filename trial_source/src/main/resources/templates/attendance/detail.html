@@ -86,6 +86,17 @@
 			const minutes = ('0' + today.getMinutes()).slice(-2);
 			return hours + ':' + minutes;
 		}
+		/* 田口響希 – Task.25 */
+		/*<![CDATA[*/
+        // TODO サーバー側で登録したBoolean値を受け取る (true または false が入る)
+		var hasUnentered = /*[[ ${hasUnentered} ]]*/ hasUnentered;
+        // TODO 画面読み込み完了時に実行
+        window.addEventListener('DOMContentLoaded', function() {
+			if (hasUnentered) {
+				alert('過去の勤怠に未入力があります。');
+			};
+		});
+		/*]]>*/
 	</script>
 
 </body>
