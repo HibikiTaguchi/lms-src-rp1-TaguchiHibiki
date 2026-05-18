@@ -46,5 +46,14 @@ public class DailyAttendanceForm {
 	private String courseName;
 	/** インデックス */
 	private String index;
-
+	
+	// 田口響希 – Task.26
+	/** 出勤時間(時) */
+	private Integer trainingStartTimeHours;
+	/** 出勤時間(分) */
+	private Integer trainingStartTimeMinutes;
+	/** 退勤時間(時) */
+	private Integer trainingEndTimeHours;
+	/** 退勤時間(分) */
+	private Integer trainingEndTimeMinutes;
 }
