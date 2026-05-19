@@ -170,8 +170,13 @@ public class AttendanceUtil {
 	 * @return 時間(h) 1時間未満なら0 それ以外は時間を返す
 	 */
 	public Integer getHour(String timeString) {
-		Integer hour = Integer.parseInt(timeString.substring(0, 2));
-		return hour;
+		try {
+			Integer hour = Integer.parseInt(timeString.substring(0, 2));
+			return hour;
+		} catch (Exception e) {
+			System.out.println("引数に渡した出退勤時刻がnull、0などフォーマットを満たしていないため文字を切り取れませんでした。");
+			return -1;
+		}
 	}
 	
 	// 田口響希 – Task.26
@@ -182,8 +187,13 @@ public class AttendanceUtil {
 	 * @return 分(m) 
 	 */
 	public Integer getMinute(String timeString) {
-		Integer minute = Integer.parseInt(timeString.substring(3));
-		return minute;
+		try {
+			Integer minute = Integer.parseInt(timeString.substring(3));
+			return minute;
+		} catch (Exception e) {
+			System.out.println("引数に渡した出退勤時刻がnull、0などフォーマットを満たしていないため文字を切り取れませんでした。");
+			return -1;
+		}
 	}
 
 	/**
