@@ -49,11 +49,11 @@ public class DailyAttendanceForm {
 	
 	// 田口響希 – Task.26
 	/** 出勤時間(時) */
-	private Integer trainingStartTimeHours;
+	private Integer trainingStartTimeHour;
 	/** 出勤時間(分) */
-	private Integer trainingStartTimeMinutes;
+	private Integer trainingStartTimeMinute;
 	/** 退勤時間(時) */
-	private Integer trainingEndTimeHours;
+	private Integer trainingEndTimeHour;
 	/** 退勤時間(分) */
-	private Integer trainingEndTimeMinutes;
+	private Integer trainingEndTimeMinute;
 }

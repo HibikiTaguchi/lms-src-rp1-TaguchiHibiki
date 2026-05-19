@@ -121,7 +121,7 @@ public class AttendanceUtil {
 			} else if (minute == 0) {
 				time = hour + "時間";
 			} else {
-				time = hour + "時間" + minute + "分";
+				time = hour + "時" + minute + "分";
 			}
 
 			map.put(i, time);
@@ -141,13 +141,13 @@ public class AttendanceUtil {
 	public LinkedHashMap<Integer, String> getHourMap() {
 		LinkedHashMap<Integer, String> map = new LinkedHashMap<>();
 		map.put(null, "");
-		for (int hour = 0; hour < 8; hour++) {
-			String time = hour + "時間";
-			map.put(hour, time);
+		for (int i = 0; i < 24; i++) {
+			map.put(i, String.format("%02d", i));
 		}
 		return map;
 	}
 	
+	// 田口響希 – Task.26
 	/**
 	 * 分のプルダウンマップを生成
 	 * 
@@ -156,36 +156,35 @@ public class AttendanceUtil {
 	public LinkedHashMap<Integer, String> getMinuteMap() {
 		LinkedHashMap<Integer, String> map = new LinkedHashMap<>();
 		map.put(null, "");
-		for (int minute = 0; minute < 60; minute += 15) {
-			String time = minute + "分";
-			map.put(minute, time);
+		for (int i = 0; i < 60; i++) {
+			map.put(i, String.format("%02d", i));
 		}
 		return map;
 	}
 	
+	// 田口響希 – Task.26
 	/**
 	 * 時間(時)の切り出し
 	 * 
-	 * @param startOrEndTime 出退勤時間の文字列
+	 * @param timeString 出退勤時間の文字列
 	 * @return 時間(h) 1時間未満なら0 それ以外は時間を返す
 	 */
-	public Integer getHour(String startOrEndTime) {
-		if (startOrEndTime.contains("時間")) {
-			String hourStr = startOrEndTime.substring(0, startOrEndTime.indexOf("時") - 1);
-			Integer hour = Integer.parseInt(hourStr);
-			return hour;
-		} else {
-			return 0;
-		}
+	public Integer getHour(String timeString) {
+		Integer hour = Integer.parseInt(timeString.substring(0, 2));
+		return hour;
 	}
 	
+	// 田口響希 – Task.26
 	/**
 	 * 時間(分)の切り出し
 	 * 
-	 * @param startOrEndTime 出退勤時間の文字列
+	 * @param timeString 出退勤時間の文字列
 	 * @return 分(m) 
 	 */
-	
+	public Integer getMinute(String timeString) {
+		Integer minute = Integer.parseInt(timeString.substring(3));
+		return minute;
+	}
 
 	/**
 	 * 研修日の判定

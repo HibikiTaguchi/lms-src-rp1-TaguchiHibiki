@@ -262,7 +262,15 @@ public class StudentAttendanceService {
 			dailyAttendanceForm.setTrainingEndTime(attendanceManagementDto.getTrainingEndTime());
 			
 			// 田口響希 – Task.26
-			
+			// 出勤時刻文字列を取得
+			String startTimeString = attendanceManagementDto.getTrainingStartTime();
+			// ユーティリティクラスを用いて時間と分に分けてフォームにセット
+			dailyAttendanceForm.setTrainingStartTimeHour(attendanceUtil.getHour(startTimeString));
+			dailyAttendanceForm.setTrainingStartTimeMinute(attendanceUtil.getMinute(startTimeString));
+			// 退勤時刻も同様にセット
+			String endTimeString = attendanceManagementDto.getTrainingEndTime();
+			dailyAttendanceForm.setTrainingEndTimeHour(attendanceUtil.getHour(endTimeString));
+			dailyAttendanceForm.setTrainingEndTimeMinute(attendanceUtil.getMinute(endTimeString));
 			
 			if (attendanceManagementDto.getBlankTime() != null) {
 				dailyAttendanceForm.setBlankTime(attendanceManagementDto.getBlankTime());
@@ -359,5 +367,27 @@ public class StudentAttendanceService {
 		// 完了メッセージ
 		return messageUtil.getMessage(Constants.PROP_KEY_ATTENDANCE_UPDATE_NOTICE);
 	}
-
+	
+	// 田口響希 – Task.26
+	public void formatConversion(AttendanceForm attendanceForm) {
+		// 入力された出退勤の{時間}{分}をhh:mm形式に変換し、AttendanceFormにセットする
+		// # 概要 フォーム内の「時」と「分」の入力を、「hh:mm」形式の文字列に変換してセットする。  
+		for (DailyAttendanceForm dailyAttendanceForm : attendanceForm.getAttendanceList()) {
+			Integer startTimeHour = dailyAttendanceForm.getTrainingStartTimeHour();
+			Integer startTimeMinute = dailyAttendanceForm.getTrainingStartTimeMinute();
+			// * [if 出勤の「時」「分」が共に入力されている場合]
+			if (startTimeHour != null && startTimeMinute != null) {
+				// %02d:%02d 形式で trainingStartTime にセットする。
+				String trainingStartTime = String.format("%02d:%02d", startTimeHour, startTimeMinute);
+				dailyAttendanceForm.setTrainingStartTime(trainingStartTime);
+			}
+			// * [if 退勤の「時」「分」が共に入力されている場合] %02d:%02d 形式で trainingEndTime にセットする。
+			Integer endTimeHour = dailyAttendanceForm.getTrainingEndTimeHour();
+			Integer endTimeMinute = dailyAttendanceForm.getTrainingEndTimeMinute();
+			if (endTimeHour != null && endTimeMinute != null) {
+				String trainingEndTime = String.format("%02d:%02d", endTimeHour, endTimeMinute);
+				dailyAttendanceForm.setTrainingEndTime(trainingEndTime);
+			}
+		}
+	}
 }
